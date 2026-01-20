@@ -40,6 +40,7 @@ jobs:
           mkdir -p site
           cp documentation/README.md site/index.html
           cp documentation/_config.yml site/
+          touch site/.nojekyll
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
