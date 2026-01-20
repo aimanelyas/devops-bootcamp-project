@@ -1,0 +1,8 @@
+prometheus_image: prom/prometheus
+prometheus_version: latest
+prometheus_port: 9090
+prometheus_container_name: prometheus
+prometheus_data_dir: /data/prometheus
+prometheus_config_dir: /etc/prometheus
+monitoring_server_ip: 10.0.0.136
+web_server_ip: 10.0.0.5 

@@ -1,0 +1,45 @@
+- name: Create Prometheus directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - "{{ prometheus_data_dir }}"
+    - "{{ prometheus_config_dir }}"
+
+- name: Set Prometheus directory permissions
+  file:
+    path: "{{ prometheus_data_dir }}"
+    owner: '65534'
+    group: '65534'
+    mode: '0755'
+    recurse: yes
+
+- name: Create Prometheus configuration
+  template:
+    src: prometheus.yml.j2
+    dest: "{{ prometheus_config_dir }}/prometheus.yml"
+    mode: '0644'
+
+- name: Pull Prometheus Docker image
+  docker_image:
+    name: "{{ prometheus_image }}:{{ prometheus_version }}"
+    state: present
+    source: pull
+  retries: 3
+  delay: 5
+
+- name: Create and start Prometheus container
+  docker_container:
+    name: "{{ prometheus_container_name }}"
+    image: "{{ prometheus_image }}:{{ prometheus_version }}"
+    state: started
+    restart_policy: always
+    recreate: no
+    ports:
+      - "{{ prometheus_port }}:9090"
+    volumes:
+      - "{{ prometheus_config_dir }}/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
+      - "{{ prometheus_data_dir }}:/prometheus"
+
+

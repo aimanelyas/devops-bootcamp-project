@@ -1,0 +1,22 @@
+#Prerequisite—Docker on all hosts
+- name: Install Docker on all hosts
+  hosts: all
+  become: true
+  roles:
+    - geerlingguy.docker
+
+#Web server configuration
+- name: Configure web servers
+  hosts: web
+  become: true
+  roles:
+    - awscli
+    - prometheus.prometheus.node_exporter
+
+#Monitoring server configuration
+- name: Deploy monitoring stack
+  hosts: monitoring
+  become: yes
+  roles:
+    - prometheus
+    - grafana

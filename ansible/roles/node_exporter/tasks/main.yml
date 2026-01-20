@@ -1,0 +1,27 @@
+- name: Pull Node Exporter Docker image
+  docker_image:
+    name: "{{ node_exporter_image }}:{{ node_exporter_version }}"
+    state: present
+    source: pull
+  retries: 3
+  delay: 5
+
+- name: Create Node Exporter Docker container
+  docker_container:
+    name: "{{ node_exporter_container_name }}"
+    image: "{{ node_exporter_image }}:{{ node_exporter_version }}"
+    state: started
+    restart_policy: always
+    recreate: no
+    ports:
+      - "{{ node_exporter_port }}:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command: 
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - name: bridge

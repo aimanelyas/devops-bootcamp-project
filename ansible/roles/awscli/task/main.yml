@@ -1,0 +1,48 @@
+- name: update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: install prequisites
+  apt:
+    name:
+      - unzip
+      - curl
+      - python3-pip
+    state: present
+
+- name: Check if AWS CLI already installed
+  command: /usr/local/bin/aws --version
+  register: aws_cli_check
+  failed_when: false
+  changed_when: false
+
+- name: Download AWS CLI v2 installer
+  shell: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o /tmp/awscliv2.zip
+  args:
+    creates: /tmp/awscliv2.zip
+  when: aws_cli_check.rc != 0
+
+- name: Extract AWS CLI installer
+  unarchive:
+    src: /tmp/awscliv2.zip
+    dest: /tmp
+    remote_src: yes
+    creates: /tmp/aws/install
+  when: aws_cli_check.rc != 0
+
+- name: Install AWS CLI v2
+  shell: /tmp/aws/install
+  args:
+    creates: /usr/local/bin/aws
+  when: aws_cli_check.rc != 0
+
+- name: Verify AWS CLI installation
+  command: /usr/local/bin/aws --version
+  register: aws_version
+  changed_when: false
+
+- name: Display AWS CLI version
+  debug:
+    msg: "AWS CLI installed: {{ aws_version.stdout }}"
+
