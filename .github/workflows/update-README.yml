@@ -5,7 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'README.md'
+      - 'documentation/README.md'
+      - 'documentation/_config.yml'
       - '.github/workflows/update-README.yml'
   
   workflow_dispatch:
@@ -37,7 +38,8 @@ jobs:
       - name: Create documentation site
         run: |
           mkdir -p site
-          cp README.md site/index.md
+          cp documentation/README.md site/index.md
+          cp documentation/_config.yml site/
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
