@@ -35,23 +35,17 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
       
-      #- name: Create documentation site
-       # run: |
-        #  mkdir -p site
-         # cp -r documentation/* site/
-          #mv site/README.md site/index.html
-          #touch site/.nojekyll
-
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./documentation
-          destination: ./_site
+      - name: Create documentation site
+        run: |
+          mkdir -p site
+          cp -r documentation/* site/
+          mv site/README.md site/index.html
+          touch site/.nojekyll
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./_site
+          path: 'site'
       
       - name: Deploy to GitHub Pages
         id: deployment
