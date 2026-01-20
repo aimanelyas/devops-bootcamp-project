@@ -5,8 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'documentation/README.md'
-      - 'documentation/_config.yml'
+      - 'README.md'
       - '.github/workflows/update-README.yml'
   
   workflow_dispatch:
@@ -39,8 +38,6 @@ jobs:
         run: |
           mkdir -p site
           cp README.md site/index.html
-          cp _config.yml site/
-          touch site/.nojekyll
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
