@@ -43,6 +43,6 @@ jobs:
               "docker pull ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest",
               "docker stop final-project || true",
               "docker rm final-project || true",
-              "docker run -d -p 80:80 -e USER_NAME=\"AIMAN ELYAS\" --name final-project ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest"
+              "docker run -d -p 8080:80 -e USER_NAME=\"AIMAN ELYAS\" --name final-project ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest"
             ]' \
             --region ap-southeast-1

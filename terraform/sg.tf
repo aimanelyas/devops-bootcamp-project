@@ -36,7 +36,7 @@ resource "aws_security_group" "public_sg" {
     }
    }
 
-#below code is private server security group
+#Private Security Group
 resource "aws_security_group" "private_sg" {
    name        = "devops-private-sg"
    description = "Allow only SSH traffic from VPC"
