@@ -1,4 +1,4 @@
-name: Update README to GitHub Pages
+name: Deploy Documentation to GitHub Pages
 
 on:
   push:
@@ -6,9 +6,10 @@ on:
       - main
     paths:
       - 'README.md'
-      - '.github/workflows/update-README.yml'
+      - '.github/workflows/deploy-docs.yml'
   
   workflow_dispatch:
+    # Manual trigger from GitHub Actions UI
 
 permissions:
   contents: read
@@ -29,18 +30,20 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
       
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v4
       
       - name: Create documentation site
         run: |
-          mkdir -p _site
-          cp README.md _site/index.html
+          mkdir -p site
+          cp README.md site/index.md
           
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'site'
       
       - name: Deploy to GitHub Pages
         id: deployment
