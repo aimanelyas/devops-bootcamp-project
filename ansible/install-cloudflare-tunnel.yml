@@ -1,0 +1,17 @@
+- name: Install Cloudflare Tunnel
+  hosts: monitoring
+  become: yes
+  tasks:
+    - name: Download cloudflared deb package
+      get_url:
+        url: https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+        dest: /tmp/cloudflared.deb
+
+    - name: Install cloudflared
+      apt:
+        deb: /tmp/cloudflared.deb
+
+    - name: Run cloudflared tunnel
+      shell: "cloudflared service install {{ cloudflare_token }}"
+      args:
+        creates: /etc/systemd/system/cloudflared.service
