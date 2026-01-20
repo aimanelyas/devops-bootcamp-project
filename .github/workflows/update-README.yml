@@ -38,8 +38,8 @@ jobs:
       - name: Create documentation site
         run: |
           mkdir -p site
-          cp documentation/README.md site/index.html
-          cp documentation/_config.yml site/
+          cp -r documentation/* site/
+          mv site/README.md site/index.md
           touch site/.nojekyll
           
       - name: Upload artifact
