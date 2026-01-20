@@ -39,7 +39,7 @@ jobs:
         run: |
           mkdir -p site
           cp -r documentation/* site/
-          mv site/README.md site/index.md
+          mv site/README.md site/index.html
           touch site/.nojekyll
           
       - name: Upload artifact
