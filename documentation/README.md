@@ -1,3 +1,8 @@
+---
+layout: home
+title: Project Documentation
+---
+
 # 🚀 DevOps Bootcamp: Final Project
 
 Welcome to the documentation for my DevOps Bootcamp final project! This repository showcases a complete end-to-end automation pipeline, from infrastructure provisioning to live monitoring.
