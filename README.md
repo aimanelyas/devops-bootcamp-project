@@ -1,8 +1,3 @@
----
-layout: home
-title: Project Documentation
----
-
 # 🚀 DevOps Bootcamp: Final Project
 
 Welcome to the documentation for my DevOps Bootcamp final project! This repository showcases a complete end-to-end automation pipeline, from infrastructure provisioning to live monitoring.
@@ -35,4 +30,3 @@ By completing this project, I am demonstrating the ability to:
 * **`ansible/`**: Playbooks and roles for server configuration.
 * **`website-image/`**: Dockerfile and source code for the web application.
 * **`.github/workflows/`**: CI/CD pipelines for deployment and documentation.
-* **`documentation/`**: Source files for this live GitHub Pages site.
